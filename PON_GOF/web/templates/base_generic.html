@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Home {% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static "button.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "base_style.css" %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{% static "/css/bootstrap.min.css" %}">
+    <!-- Custom styles for this template -->
+    <link href="{% static "/css/justified-nav.css" %}" rel="stylesheet">
+
+</head>
+<body style="padding-top: 0">
+<div class="container">
+
+    <!-- The justified navigation menu is meant for single line per list item.
+         Multiple lines will require custom code not provided by Bootstrap. -->
+    <div class="masthead" style="margin-bottom: 40px;">
+        <div class="">
+            <a href="{% url "index" %}" class="">
+                <img alt="PON-Sol2" style="width:130px; padding: 5px;"
+                     src="{% static "img/GOF.png" %}">
+            </a>
+        </div>
+        <nav>
+            {#            <div class="navbar-header">#}
+            {#                <a href="{% url "ponsol2:index" %}" class="navbar-left">#}
+            {#                    <img alt="PON-Sol2" style="width:150px; max-height: 52px; padding: 5px;"#}
+            {#                         src="{% static "ponsol2web/img/ponsol2_logo.png" %}">#}
+            {#                </a>#}
+            {#            </div>#}
+            <ul class="nav nav-justified">
+                <li><a href="{% url "index" %}">Home</a></li>
+                <li><a href="{% url "input_prediction" %}">Protein Prediction</a></li>
+                <li><a href="{% url "disclaimer" %}">Disclaimer</a></li>
+                <li><a href="">DNA Prediction</a></li>
+                <li><a href="{% url "about" %}">About</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    {% block content %}
+
+    {% endblock %}
+    <!-- Site footer -->
+    <footer class="footer text-center">
+        <p>Last updated: 2021-4-13
+        </p>
+    </footer>
+
+</div> <!-- /container -->
+</body>
+<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+<script src="{% static "js/jquery.min.js" %}"></script>
+<!-- 包括所有已编译的插件 -->
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+</html>

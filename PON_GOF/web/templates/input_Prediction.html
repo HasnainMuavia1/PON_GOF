@@ -1,0 +1,113 @@
+{% extends "base_generic.html" %}
+{% block title %} Predict {% endblock %}
+{% block content %}
+    <div class="page-header">
+        <h1>Prediction</h1>
+    </div>
+    <div class="row" style="padding-left: 20px; padding-right: 20px">
+        <p class="lead">Automated email sending CSV Functionality</p>
+    </div>
+    <div class="form row">
+        <form enctype="multipart/form-data" action="" method="post">
+            {% csrf_token %}
+            <div class="form-group col-md-12">
+                <div class="fix-vertical-center">
+                    <div class="col-md-6" style="padding: 0">
+                        <label for="seq">Input By Values </label>
+                        <a id="example_input" href="javascript:set_example_seq()">Example</a>
+                        <textarea class="form-control" rows="10" name="te" id="seq"></textarea>
+                    </div>
+                    <div class="col-md-1">
+                        <strong>OR</strong>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="input_id">Upload CSV or Excel file</label>
+                            <input type="file" class="form-control" name="csv_data" id="input_id">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="mail" class="right-align">E-mail</label>
+                <input type="email" name="e" class="form-control" id="mail" placeholder="Email" required>
+            </div>
+            <div class="col-md-12">
+                <input class="btn btn-danger text-capitalize btn-block" type="submit" value="Start Predict">
+                <p>Number of times it is used : {{ counter }}</p>
+            </div>
+
+             <div class="col-lg-12" style="margin-top: 10px !important;">
+                <div class="alert alert-warning" role="alert"><div id="error-message" style="color: red;">{{ msg }}</div></div>
+            </div>
+
+        </form>
+
+    </div>
+    <script type="text/javascript">
+        function set_example_seq() {
+            var seq_input = document.getElementById("seq");
+            seq_input.value = ">NP_000005.3\nM1A\nM2A\n>NP_000005.3\nM1A\nM2A";
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const textarea = document.getElementById('seq');
+            const fileInput = document.getElementById('input_id');
+            const errorMessage = document.getElementById('error-message');
+
+            // Function to clear the error message
+            function clearError() {
+                errorMessage.textContent = '';
+            }
+
+            // Add event listener for form submission
+            form.addEventListener('submit', function(event) {
+                const inputText = textarea.value.trim();
+                const fileSelected = fileInput.files.length > 0;
+
+                // Check if exactly one input field is filled
+                if ((inputText && fileSelected) || (!inputText && !fileSelected)) {
+                    errorMessage.textContent = 'Please provide input in either the text area or by selecting a file, but not both.';
+                    event.preventDefault(); // Prevent form submission
+                    return;
+                }
+
+                // If text area is filled, validate its content
+                if (inputText) {
+                    const blocks = inputText.split(/(?=^>)/m);
+                    let isValid = true;
+
+                    blocks.forEach(block => {
+                        const lines = block.trim().split('\n');
+                        if (lines.length < 2 || !lines[0].startsWith('>')) {
+                            isValid = false;
+                            return;
+                        }
+
+                        for (let i = 1; i < lines.length; i++) {
+                            if (lines[i].trim() === '') {
+                                continue;
+                            }
+                            if (!/^[a-zA-Z0-9_]+$/.test(lines[i].trim())) {
+                                isValid = false;
+                                break;
+                            }
+                        }
+                    });
+
+                    if (!isValid) {
+                        errorMessage.textContent = 'Input format is incorrect. Each block must start with ">" and subsequent lines should be valid IDs.';
+                        event.preventDefault(); // Prevent form submission
+                    } else {
+                        clearError(); // Clear error message if validation passes
+                    }
+                }
+            });
+
+            // Clear error message when focusing on the textarea or file input
+            textarea.addEventListener('focus', clearError);
+            fileInput.addEventListener('change', clearError); // Use 'change' event for file input
+        });
+    </script>
+{% endblock %}

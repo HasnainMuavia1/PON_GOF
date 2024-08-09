@@ -1,0 +1,41 @@
+{% extends "base_generic.html" %}
+{% block content %}
+
+    <style>
+    .custom-button {
+     width: 300px;
+    height: 50px;
+    font-size: 16px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    line-height: 20px; /* Ensure vertical alignment */
+    padding: 0;
+}
+    </style>
+    <!-- Jumbotron -->
+    <div class="jumbotron">
+        <h1 class="text-center">Welcome to <strong>PON-GOF</strong></h1>
+        <center>
+            <p class="lead text-center" style="margin-bottom: 0px">
+                This URL is for file uploading only. You can upload multiple files. If you reach the limit, decrease the
+                batch size in the views; this will resolve your problem.
+            </p>
+            <form enctype="multipart/form-data" action="" method="post">
+                {% csrf_token %}
+                <div class="form-group center-form-group" style="margin-top: 20px">
+                            <label for="input_id">Upload Your Files here</label>
+                            <input type="file" style="width: 300px" class="form-control" name="files" id="input_id" multiple>
+
+                </div>
+                 <input class="btn btn-danger custom-button" type="submit" value="Upload">
+                <div class="col-lg-12 text-center" style="margin-top: 10px !important;">
+                    <div class="alert alert-warning" role="alert">
+                        <div id="error-message" style="color: red;">{{ msg }}</div>
+                    </div>
+                </div>
+            </form>
+        </center>
+    </div>
+{% endblock %}

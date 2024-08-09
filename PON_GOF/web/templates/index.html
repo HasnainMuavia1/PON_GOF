@@ -1,0 +1,79 @@
+{% extends "base_generic.html" %}
+{% block content %}
+    <!-- Jumbotron -->
+    <div class="jumbotron">
+        <h1 class="">Wecome to <strong>PON-GOF</strong></h1>
+        <p class="lead text-justify" style="margin-bottom: 0px">
+            Solubility is a central protein property and when reduced can lead to diseases. PON-GOF is a prediction
+            program to detect amino acid substitutions that increase, decrease or have no effect on the protein
+            solubility. The method is based on a gradient boosting algorithm and it has been trained on a large data
+            set. The method is fast and has high performance. It can be used to predict variations for proteins from any
+            organism.
+        </p>
+
+        <p class="text-justify">
+            PON-GOF was developed in collaboration between the groups of Prof. Mauno Vihinen
+            in Lund University
+            and
+            Assoc. Prof. Yang Yang in Soochow University.
+            You can also visit the mirror website in Soochow University, China.
+        </p>
+        <p><a class="btn btn-lg " href="" role="button" style="background-color: darkorange!important; color: white">Get started</a></p>
+    </div>
+
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-lg-4 col-md-4">
+            <h2>Input formats</h2>
+            <p>
+                There are two input formats. Sequences can be given either in FASTA format or indicated by their IDs.
+            </p>
+            <p><a class="btn btn-danger" href="{% url "about" %}#input_example" role="button">View details
+                »</a></p>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <h2>Data sets</h2>
+            <p>
+                5666 variants were used for method training and 662 variants were used for blind test. The data sets are
+                freely available.
+               
+            </p>
+            <p><a class="btn btn-danger" href="{% url "about" %}#dataset" role="button">View details »</a></p>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <h2>Prediction results</h2>
+            <p>
+                Result are displayed on the Results page. You can also provide your email, then the results are by
+                email.
+            </p>
+            <p><a class="btn btn-danger" href="" role="button">View
+                details »</a></p>
+        </div>
+    </div>
+    <div class="row text-justify" style=" padding: 30px">
+        <h1 class="text-justify text-capitalize">How to cite?</h1>
+        <p>
+            PON-GOF manuscript has been submitted. In the meantime if using the service cite the URL.
+            <br>
+            {#        <a class="btn btn-success btn-xs" href="#" target="_blank"> Go to Bioinformatics </a>#}
+        </p>
+        <p class="text-justify">
+            {#            PON-Sol (2016), the old version based on Random Forests, has been published Bioinformatics.#}
+            {#            <br>#}
+            The original PON-Sol was published in
+            Yang, Y. , Niroula, A. , Shen, B. , & Vihinen, M. . (2016). Pon-sol: prediction of effects of amino acid
+            substitutions on protein solubility. Bioinformatics, btw066.
+
+            {#            Yang Yang, Abhishek Niroula, Bairong Shen, Mauno Vihinen, PON-Sol: prediction of effects of amino acid substitutions on protein solubility, Bioinformatics, Volume 32, Issue 13, 1 July 2016, Pages 2032–2034, https://doi.org/10.1093/bioinformatics/btw066#}
+            {#            It was trained this far on the largest dataset of 406 single amino acid substitutions.#}
+            {#            It grouped variants into three classes: solubility decreasing and increasing variants and those not affecting solubility.#}
+        </p>
+        {#        <div class="col-lg-6">#}
+        {#            <h2 class="text-center text-capitalize">How to cite?</h2>#}
+        {#        </div>#}
+        {#        <div class="col-lg-6">#}
+        {#            <h2 class="text-center text-capitalize">Dataset</h2>#}
+        {#        </div>#}
+    </div>
+{% endblock %}
+
